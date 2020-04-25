@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
+import { CreateBookingComponent } from 'src/app/bookings/create-booking/create-booking.component';
 
 @Component({
   selector: 'app-place-detail',
@@ -9,7 +10,8 @@ import { NavController } from '@ionic/angular';
 })
 export class PlaceDetailPage implements OnInit {
 
-  constructor(private router: Router, private navController: NavController) { }
+  constructor(private router: Router, private navController: NavController,
+    private modalController: ModalController) { }
 
   ngOnInit() {
   }
@@ -17,8 +19,11 @@ export class PlaceDetailPage implements OnInit {
   onBookPlace(){
     // this.router.navigateByUrl('/places/tabs/discover');
     //internally use router navigate but ith animation that going back
-    this.navController.navigateBack('/places/tabs/discover')
+    // this.navController.navigateBack('/places/tabs/discover')
     // this.navController.pop() // this pops the current page
+    this.modalController.create({component: CreateBookingComponent}).then(modal=>{
+      modal.present();
+    })
   }
 
 }
