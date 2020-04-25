@@ -21,9 +21,19 @@ export class PlaceDetailPage implements OnInit {
     //internally use router navigate but ith animation that going back
     // this.navController.navigateBack('/places/tabs/discover')
     // this.navController.pop() // this pops the current page
-    this.modalController.create({component: CreateBookingComponent}).then(modal=>{
+    this.modalController.create({
+      component: CreateBookingComponent,
+       componentProps:{selectedPlace: 'test'
+    }}).then(modal=>{
       modal.present();
+      return modal.onDidDismiss();
     })
+    .then(resultDta=>{
+      console.log(resultDta.data, resultDta.role);
+      if(resultDta.role === 'confirm'){
+        console.log('booked')
+      }
+    });
   }
 
 }
