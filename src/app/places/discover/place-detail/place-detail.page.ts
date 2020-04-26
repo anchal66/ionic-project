@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController, ModalController } from '@ionic/angular';
+import { NavController, ModalController, ActionSheetController } from '@ionic/angular';
 import { CreateBookingComponent } from 'src/app/bookings/create-booking/create-booking.component';
 
 @Component({
@@ -11,7 +11,8 @@ import { CreateBookingComponent } from 'src/app/bookings/create-booking/create-b
 export class PlaceDetailPage implements OnInit {
 
   constructor(private router: Router, private navController: NavController,
-    private modalController: ModalController) { }
+    private modalController: ModalController,
+    private actionSheetCtrl: ActionSheetController) { }
 
   ngOnInit() {
   }
@@ -21,6 +22,35 @@ export class PlaceDetailPage implements OnInit {
     //internally use router navigate but ith animation that going back
     // this.navController.navigateBack('/places/tabs/discover')
     // this.navController.pop() // this pops the current page
+
+    this.actionSheetCtrl.create({
+      header: 'Choose an action:',
+      buttons: [
+        {
+          text: 'Select Date:',
+          handler: ()=>{
+            this.openBookingModal('select')
+          }
+        },
+        {
+          text: 'Random Date:',
+          handler: ()=>{
+            this.openBookingModal('random')
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }
+      ]
+    }).then(actionSheetEl=>{
+      actionSheetEl.present();
+    });
+
+  }
+
+  openBookingModal(mode: 'select' | 'random'){
+    console.log(mode)
     this.modalController.create({
       component: CreateBookingComponent,
        componentProps:{selectedPlace: 'test'
