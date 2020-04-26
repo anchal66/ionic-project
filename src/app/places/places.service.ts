@@ -26,7 +26,7 @@ export class PlacesService {
 
   constructor() { }
 
-  getPlaces(){
+  get places(){
     return [...this._places];
   }
 
