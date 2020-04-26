@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -17,4 +17,6 @@ import { BookingsPage } from './bookings.page';
   ],
   declarations: [BookingsPage]
 })
-export class BookingsPageModule {}
+export class BookingsPageModule{
+
+}
