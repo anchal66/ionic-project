@@ -19,9 +19,11 @@ export class OffersPage implements OnInit {
     this.offers = this.placesService.places;
   }
 
-  onEdit(offerId: string, slidingItem: IonItemSliding) {
-    slidingItem.close();
-    this.router.navigate(['/', 'places', 'tabs', 'offers', 'edit', offerId]);
-    console.log('Editing item', offerId);
-  }
+
+    onEdit(offerId: string, slidingItem: IonItemSliding) {
+      slidingItem.close();
+      this.router.navigate(['/', 'places', 'tabs', 'offers', 'edit', offerId]);
+      console.log('Editing item', offerId);
+    }
+
 }
