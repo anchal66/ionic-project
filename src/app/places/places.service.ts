@@ -8,12 +8,12 @@ export class PlacesService {
 
   private _places: Place[] = [
     new Place('p1',
-     'Avinash Nachal',
+     'Avinash Anchal',
       'in hearts',
        'https://www.planetware.com/wpimages/2019/11/india-best-places-to-visit-agra.jpg',
        90 ),
        new Place('p2',
-     'Avijeet Nachal',
+     'Avijeet Anchal',
       'in hearts',
        'https://img.traveltriangle.com/blog/wp-content/uploads/2014/11/cover-for-Places-To-Visit-In-August-In-The-World.jpg',
        80 ),
