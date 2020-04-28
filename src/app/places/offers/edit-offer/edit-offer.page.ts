@@ -4,6 +4,7 @@ import { PlacesService } from '../../places.service';
 import { NavController } from '@ionic/angular';
 import { Place } from '../../place.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-offer',
@@ -13,6 +14,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class EditOfferPage implements OnInit {
 
   place: Place;
+  private placeSub: Subscription
   form:FormGroup
   constructor(private route: ActivatedRoute,
     private placeService: PlacesService,
@@ -24,19 +26,25 @@ export class EditOfferPage implements OnInit {
         this.navCtrl.navigateBack('/places/tabs/offers');
         return
       }
-      this.place = this.placeService.getPlace(param.get('placeId'));
-
-      this.form = new FormGroup({
-        title: new FormControl(this.place.title, {
-          updateOn: 'blur',
-          validators: [Validators.required]
-        }),
-        description: new FormControl(this.place.description, {
-          updateOn: 'blur',
-          validators: [Validators.required, Validators.maxLength(180)]
-        }),
-      })
+      this.placeSub = this.placeService.getPlace(param.get('placeId')).subscribe(place=>{
+        this.place = place
+        this.form = new FormGroup({
+          title: new FormControl(this.place.title, {
+            updateOn: 'blur',
+            validators: [Validators.required]
+          }),
+          description: new FormControl(this.place.description, {
+            updateOn: 'blur',
+            validators: [Validators.required, Validators.maxLength(180)]
+          }),
+        })
+      });
     })
+  }
+  ngOnDestroy(){
+    if(this.placeSub){
+      this.placeSub.unsubscribe();
+    }
   }
   onUpdateOffer(){
     if(!this.form.valid){
